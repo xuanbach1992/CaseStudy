@@ -14,9 +14,9 @@ let FootballLeague = function (nameLeague) {
 let TeamClub = function (name) {
     this._name = name;
     this._perform = 100;
-    // this._win = 0;
-    // this._lost = 0;
-    // this._draw = 0;
+    this._win = 0;
+    this._lost = 0;
+    this._draw = 0;
     this._score = 0;
     this._rank = 0;
     this.performance = function () {
@@ -32,29 +32,31 @@ let TeamClub = function (name) {
     this.getName = function () {
         return this._name;
     };
-    // this.isWin = function () {
-    //     return this._score + 3;
-    // };
-    // this.isLost = function () {
-    //     return this._score;
-    // };
-    // this.isDraw = function () {
-    //     return this._score + 1;
-    // };
+    this.isWin = function () {
+        this._score += 3;
+        this._win += 1
+    };
+    this.isLost = function () {
+        this._score += 1;
+        this._lost += 1
+    };
+    this.isDraw = function () {
+        this._score += 1;
+        this._draw += 1
+    };
     this.matchScore = function ( name) {
-            let result = this.performance - name.performance;
-            if (result === 0) {
-                this._score+=1;
-                name._score+=1;
-            } else if (result <0) {
-                this._score=this._score;
-                name._score+=3;
+        // let result = this.performance - name.performance;?
+        if (this.performance === name.performance) {
+            this.isDraw();
+            name.isDraw();
+        } else if (this.performance < name.performance) {
+            this.isLost();
+            name.isWin();
             } else {
-                this._score+=3;
-                name._score=name._score;
+            this.isWin();
+            name.isLost();
             }
         };
-
 };
 let leauge = new FootballLeague("Premier League");
 let footballTeam = [];
@@ -76,9 +78,10 @@ function randomArray(arr) {
 // function matchGameOneTurn() {
 //     // for (leauge._turn; leauge._turn <= 10; leauge._turn++) {
    footballTeam = randomArray(footballTeam);
-    for (let i = 0; i < footballTeam.length; i + 2) {
-        footballTeam[i].matchScore(footballTeam[i+1]);
-        console.log(footballTeam[1]._score);
+for (let i = 0; i < footballTeam.length; i + 5) {
+        footballTeam[i].matchScore(footballTeam[i+5]);
+
+    console.log(footballTeam[i]._score);
     }
 // }
 
