@@ -1,18 +1,20 @@
-
-/*let inputStr = document.getElementById("inputName");
+let arrayNameClub = [];
+let inputStr = document.getElementById("inputName");
 let edit = document.getElementById('editValue');
 let index = 0;
+
 function display() {
     arrayNameClub.push(inputStr.value);
     inputStr.value = "";
     inputStr.focus();
     printName();
-    // showTeam();
+    showTeam();
 }
+
 function printName() {
     let printArray = '';
     if (arrayNameClub.length > 0) {
-        for (i = 0; i < arrayNameClub.length; i++) {
+        for (let i = 0; i < arrayNameClub.length; i++) {
             printArray += '<tr>';
             printArray += '<td>' + arrayNameClub[i] + '</td>';
             printArray += '<td><button onclick="Edit(' + i + ')">Edit</button></td>';
@@ -22,6 +24,7 @@ function printName() {
     }
     document.getElementById('demo').innerHTML = printArray;
 }
+
 function closeInputHidden() {
     document.getElementById('hiddenClass').style.display = 'none';
 }
@@ -32,20 +35,22 @@ function editInput() {
     printName();
     closeInputHidden();
 }
+
 function Edit(id) {
     edit.value = arrayNameClub[id];
     document.getElementById('hiddenClass').style.display = 'block';
     index = id;
     return index;
 }
+
 function Delete(id) {
     arrayNameClub.splice(id, 1);
     printName();
-}*/
+}
 
 let leauge = new FootballLeague("Premier League");
 let footballTeam = [];
-let arrayNameClub =[1,2,3,4,5,6,7,8,9,0];
+
 function showTeam() {
     footballTeam = [];
     for (let i of arrayNameClub) {
@@ -64,16 +69,15 @@ function randomArray(arr) {
 }
 
 function playAll() {
-    showTeam();
-    while (leauge._turn < 10) {
+    for (leauge._turn; leauge._turn < 10; leauge._turn++) {
         footballTeam = randomArray(footballTeam);
         for (let i = 0; i < footballTeam.length / 2; i++) {
             footballTeam[i].match(footballTeam[footballTeam.length - 1 - i]);
-            leauge._turn++;
         }
-        displayRank();
     }
+    displayRank();
 }
+
 function displayRank() {
     let print = "";
     for (let i = 0; i < footballTeam.length; i++) {

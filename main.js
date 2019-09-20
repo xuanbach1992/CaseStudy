@@ -1,6 +1,6 @@
 let FootballLeague = function (nameLeague) {
     this._name = nameLeague;
-    this._turn = 1;
+    this._turn = 0;
 };
 
 let TeamClub = function (name) {
@@ -52,41 +52,3 @@ let TeamClub = function (name) {
         }
     }
 };
-let leauge = new FootballLeague("Premier League");
-let footballTeam = [];
-let arrayNameClub = ["Manchester United", "Manchester City", "Arsenal", "Chelsea", "Liverpool", "Tottenham", "Real Madrid", "Barca", "Viet Nam", "Thai Lan"];
-
-function showTeam() {
-    footballTeam = [];
-    for (let i of arrayNameClub) {
-        footballTeam.push(new TeamClub(i));
-    }
-}
-
-function randomArray(arr) {
-    for (let i = arr.length - 1; i > 0; i--) {
-        let randomIndex = Math.round(Math.random() * i);
-        let storage = arr[randomIndex];
-        arr[randomIndex] = arr[i];
-        arr[i] = storage;
-    }
-    return arr;
-}
-
-function playAll() {
-    showTeam();
-    while (leauge._turn < 10) {
-        footballTeam = randomArray(footballTeam);
-        for (let i = 0; i < footballTeam.length / 2; i++) {
-            footballTeam[i].match(footballTeam[footballTeam.length - 1 - i]);
-            leauge._turn++;
-        }
-    }
-    displayRank();
-}
-function displayRank() {
-    for (let i = 0; i < footballTeam.length; i++) {
-        console.log(footballTeam[i]._name,footballTeam[i]._win, footballTeam[i]._lost, footballTeam[i]._draw, footballTeam[i]._score);
-    }
-}
-playAll();
