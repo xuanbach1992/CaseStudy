@@ -3,25 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-
+    <link href="styleStudy.css" rel="stylesheet">
+    <script src="sadsa.js"></script>
     <!--    <script src="main.js"></script>-->
-        <link rel="stylesheet" href="styleStudy.css">
 
 <body>
-<input id="inputName" type="text">
-<button onclick="display()"> sdsa</button>
+<fieldset>
+    <legend>Them cau lac bo vao giai dau</legend>
+    <input id="inputName" type="text">
+    <button onclick="display()"> ADD FC</button>
+    <div id="hiddenClass">
+        <input type="text" id="editValue">
+        <button onclick="editInput()">edit</button>
+    </div>
+    <table>
+        <tr>
+            <th>Football Club</th>
+        </tr>
+        <tbody id="demo">
+        </tbody>
+    </table>
+</fieldset>
+<fieldset>
+    <legend>Thi dau</legend>
+    <button onclick="playAll()">Play</button>
+    <table>
+        <tr>
+            <th>Bang xep hang</th>
+        </tr>
+        <tr>
+            <td>FC</td>
+            <td>so tran</td>
+            <td>thang</td>
+            <td>thua</td>
+            <td>hoa</td>
+            <td>Diem</td>
+        </tr>
+        <tbody id="rankTable">
+        </tbody>
+    </table>
+</fieldset>
+<!--<script src="display.js"></script>-->
 
-<div id="hiddenClass">
-    <input type="text" id="editValue">
-    <button onclick="editInput()">edit</button>
-</div>
-<table>
-    <tr>
-        <th>Football Club</th>
-    </tr>
-    <tbody id="demo">
-    </tbody>
-</table>
-<script src="display.js"></script>
 </body>
 </html>
