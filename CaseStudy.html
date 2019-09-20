@@ -4,16 +4,15 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link href="styleStudy.css" rel="stylesheet">
-    <script src="sadsa.js"></script>
     <script src="main.js"></script>
 
 <body>
 <fieldset>
     <legend>Them cau lac bo vao giai dau</legend>
-    <input id="inputName" type="text">
+    <label for="inputName"></label><input id="inputName" type="text">
     <button onclick="display()"> ADD FC</button>
     <div id="hiddenClass">
-        <input type="text" id="editValue">
+        <label for="editValue"></label><input type="text" id="editValue">
         <button onclick="editInput()">edit</button>
     </div>
     <table>
@@ -29,15 +28,15 @@
     <button onclick="playAll()">Play</button>
     <table>
         <tr>
-            <th>Bang xep hang</th>
+            <th>Rank Table</th>
         </tr>
         <tr>
             <td>FC</td>
-            <td>so tran</td>
-            <td>thang</td>
-            <td>thua</td>
-            <td>hoa</td>
-            <td>Diem</td>
+            <td>Số trận đá</td>
+            <td>Win</td>
+            <td>Lost</td>
+            <td>Draw</td>
+            <td>Score</td>
         </tr>
         <tbody id="rankTable">
         </tbody>

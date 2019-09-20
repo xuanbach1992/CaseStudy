@@ -15,7 +15,7 @@ function printName() {
     let printArray = '';
     if (arrayNameClub.length > 0) {
         for (let i = 0; i < arrayNameClub.length; i++) {
-            printArray += '<tr>';
+            printArray += `<tr>`;
             printArray += '<td>' + arrayNameClub[i] + '</td>';
             printArray += '<td><button onclick="Edit(' + i + ')">Edit</button></td>';
             printArray += '<td><button onclick="Delete(' + i + ')">Delete</button></td>';
@@ -50,7 +50,6 @@ function Delete(id) {
 
 let leauge = new FootballLeague("Premier League");
 let footballTeam = [];
-
 function showTeam() {
     footballTeam = [];
     for (let i of arrayNameClub) {
@@ -80,16 +79,20 @@ function playAll() {
 
 function displayRank() {
     let print = "";
-    for (let i = 0; i < footballTeam.length; i++) {
-        print += '<tr>';
-        print += '<td>' + footballTeam[i]._name + '</td>';
-        print += '<td>' + leauge._turn + '</td>';
-        print += '<td>' + footballTeam[i]._win + '</td>';
-        print += '<td>' + footballTeam[i]._lost + '</td>';
-        print += '<td>' + footballTeam[i]._draw + '</td>';
-        print += '<td>' + footballTeam[i]._score + '</td>';
-        print += '</tr>';
+    if (footballTeam.length >= 2) {
+        for (let i = 0; i < footballTeam.length; i++) {
+            print += '<tr>';
+            print += '<td>' + footballTeam[i]._name + '</td>';
+            print += '<td>' + leauge._turn + '</td>';
+            print += '<td>' + footballTeam[i]._win + '</td>';
+            print += '<td>' + footballTeam[i]._lost + '</td>';
+            print += '<td>' + footballTeam[i]._draw + '</td>';
+            print += '<td>' + footballTeam[i]._score + '</td>';
+            print += '</tr>';
+        }
+        document.getElementById('rankTable').innerHTML = print;
+    } else {
+        alert("ít người tham dự, hủy giải đấu")
     }
-    document.getElementById('rankTable').innerHTML = print;
 }
 

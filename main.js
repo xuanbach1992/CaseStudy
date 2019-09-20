@@ -1,6 +1,9 @@
 let FootballLeague = function (nameLeague) {
     this._name = nameLeague;
     this._turn = 0;
+    this.getName=function(){
+        return this._name;
+    };
 };
 
 let TeamClub = function (name) {
