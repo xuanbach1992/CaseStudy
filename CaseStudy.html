@@ -25,11 +25,12 @@
 </fieldset>
 <fieldset>
     <legend>Thi dau</legend>
-    <code id="hello">dsad</code>
-    <button onclick="playAll()">Play</button>
+    <code id="hello"></code>
+    <button onclick="createSelect()">Create</button>
+<!--    <button onclick="playAll()">Play</button>-->
     <br>
     <code>Vòng đấu</code>
-    <label for="selectTurn"></label><select id="selectTurn" onchange="displayRank();getSelectOption()">
+    <label for="selectTurn"></label><select id="selectTurn" onchange="getSelectOption()">
     <option selected>--Vòng--</option>
 </select>
     <table>

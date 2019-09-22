@@ -34,8 +34,8 @@ function printName() {
         for (let i = 0; i < arrayNameClub.length; i++) {
             printArray += `<tr>`;
             printArray += '<td>' + arrayNameClub[i] + '</td>';
-            printArray += '<td><button onclick="Edit(' + i + ')">Edit</button></td>';
-            printArray += '<td><button onclick="Delete(' + i + ')">Delete</button></td>';
+            printArray += '<td><button onclick="editTeam(' + i + ')">Edit</button></td>';
+            printArray += '<td><button onclick="delTeam(' + i + ')">Delete</button></td>';
             printArray += '</tr>';
         }
     }
@@ -53,19 +53,18 @@ function editInput() {
     closeInputHidden();
 }
 
-function Edit(id) {
+function editTeam(id) {
     edit.value = arrayNameClub[id];
     document.getElementById('hiddenClass').style.display = 'block';
     index = id;
     return index;
 }
 
-function Delete(id) {
+function delTeam(id) {
     arrayNameClub.splice(id, 1);
     printName();
 }
 
-// let leauge = new FootballLeague(prompt('Hãy nhập tên giải đấu'));
 function augmentElementArray(test) {
     for (let i = 0; i < test.length - 1; i++) {
         // let randomIndex = Math.round(Math.random() * i);
@@ -95,8 +94,6 @@ function showTeam() {
 }
 
 function playAll() {
-    selectTurn();
-    getSelectOption();
     for (leauge._turn = 0; leauge._turn < turnMatch; leauge._turn++) {
         footballTeam = augmentElementArray(footballTeam);
         for (let i = 0; i < footballTeam.length / 2; i++) {
@@ -105,7 +102,7 @@ function playAll() {
     }
 }
 
-function selectTurn() {
+function createSelect() {
     for (let i = 0; i < turnMax; i++) {
         select.options[select.options.length] = new Option(`Vòng ${i + 1}`, `${i + 1}`);
     }
@@ -113,11 +110,12 @@ function selectTurn() {
 
 function getSelectOption() {
     turnMatch = select.options[select.selectedIndex].value;
+    playAll();
+    displayRank();
     return turnMatch;
 }
 
 function displayRank() {
-    getSelectOption();
     document.getElementById('rankTable').innerHTML = "";
     let print = "";
     for (let i = 0; i < turnMax; i++) {
