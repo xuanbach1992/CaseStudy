@@ -57,19 +57,19 @@ function showTeam() {
     }
 }
 
-function randomArray(arr) {
-    for (let i = arr.length - 1; i > 0; i--) {
-        let randomIndex = Math.round(Math.random() * i);
-        let storage = arr[randomIndex];
-        arr[randomIndex] = arr[i];
-        arr[i] = storage;
+function augmentElementArray(test) {
+    for (let i = 0; i <test.length-1 ; i++) {
+        // let randomIndex = Math.round(Math.random() * i);
+        temp=test[i];
+        test[i]=test[i+1];
+        test[i+1]=temp;
     }
-    return arr;
+    return test;
 }
 
 function playAll() {
     for (leauge._turn; leauge._turn < 10; leauge._turn++) {
-        footballTeam = randomArray(footballTeam);
+        footballTeam = augmentElementArray(footballTeam);
         for (let i = 0; i < footballTeam.length / 2; i++) {
             footballTeam[i].match(footballTeam[footballTeam.length - 1 - i]);
         }
