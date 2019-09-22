@@ -2,7 +2,7 @@ let arrayNameClub = [];
 let inputStr = document.getElementById("inputName");
 let edit = document.getElementById('editValue');
 let index = 0;
-let nameleauge = "";
+let nameleauge = ``;
 let turnMax = 0;
 let select = document.getElementById("selectTurn");
 let turnMatch = "";
@@ -110,10 +110,12 @@ function selectTurn() {
         select.options[select.options.length] = new Option(`Vòng ${i + 1}`, `${i + 1}`);
     }
 }
+
 function getSelectOption() {
-    turnMatch=select.options[select.selectedIndex].value;
+    turnMatch = select.options[select.selectedIndex].value;
     return turnMatch;
 }
+
 function displayRank() {
     getSelectOption();
     document.getElementById('rankTable').innerHTML = "";
