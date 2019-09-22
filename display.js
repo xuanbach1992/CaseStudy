@@ -2,6 +2,23 @@ let arrayNameClub = [];
 let inputStr = document.getElementById("inputName");
 let edit = document.getElementById('editValue');
 let index = 0;
+let nameleauge = "";
+let turnMax = 0;
+let select = document.getElementById("selectTurn");
+let turnMatch = "";
+
+function sayhello() {
+    let question = confirm("ban muon da bong k?");
+    if (question) {
+        if (confirm('hay thu lam người quan lý giải bóng')) {
+            nameleauge = prompt('Hãy nhập tên giải đấu');
+            document.getElementById('hello').innerHTML = `Chào mừng bạn đến với giải đấu ${nameleauge}`;
+            return nameleauge;
+        }
+    }
+}
+
+sayhello();
 
 function display() {
     arrayNameClub.push(inputStr.value);
@@ -48,51 +65,70 @@ function Delete(id) {
     printName();
 }
 
-let leauge = new FootballLeague("Premier League");
+// let leauge = new FootballLeague(prompt('Hãy nhập tên giải đấu'));
+function augmentElementArray(test) {
+    for (let i = 0; i < test.length - 1; i++) {
+        // let randomIndex = Math.round(Math.random() * i);
+        temp = test[i];
+        test[i] = test[i + 1];
+        test[i + 1] = temp;
+    }
+    return test;
+}
+
+let leauge = new FootballLeague(nameleauge);
 let footballTeam = [];
+
 function showTeam() {
     footballTeam = [];
     for (let i of arrayNameClub) {
         footballTeam.push(new TeamClub(i));
     }
-}
-
-function augmentElementArray(test) {
-    for (let i = 0; i <test.length-1 ; i++) {
-        // let randomIndex = Math.round(Math.random() * i);
-        temp=test[i];
-        test[i]=test[i+1];
-        test[i+1]=temp;
+    leauge.setTurnMax(footballTeam.length);
+    turnMax = leauge.getTurnMax();
+    if (footballTeam.length >= 10) {
+        alert("Đã đủ số đội tối thiểu")
+        // } else {
+        //     alert("ít người tham dự,cần thêm số đội tham dự")
     }
-    return test;
+    return turnMax;
 }
 
 function playAll() {
-    for (leauge._turn; leauge._turn < 10; leauge._turn++) {
+    selectTurn();
+    getSelectOption();
+    for (leauge._turn = 0; leauge._turn < turnMatch; leauge._turn++) {
         footballTeam = augmentElementArray(footballTeam);
         for (let i = 0; i < footballTeam.length / 2; i++) {
             footballTeam[i].match(footballTeam[footballTeam.length - 1 - i]);
         }
     }
-    displayRank();
 }
 
-function displayRank() {
-    let print = "";
-    if (footballTeam.length >= 2) {
-        for (let i = 0; i < footballTeam.length; i++) {
-            print += '<tr>';
-            print += '<td>' + footballTeam[i]._name + '</td>';
-            print += '<td>' + leauge._turn + '</td>';
-            print += '<td>' + footballTeam[i]._win + '</td>';
-            print += '<td>' + footballTeam[i]._lost + '</td>';
-            print += '<td>' + footballTeam[i]._draw + '</td>';
-            print += '<td>' + footballTeam[i]._score + '</td>';
-            print += '</tr>';
-        }
-        document.getElementById('rankTable').innerHTML = print;
-    } else {
-        alert("ít người tham dự, hủy giải đấu")
+function selectTurn() {
+    for (let i = 0; i < turnMax; i++) {
+        select.options[select.options.length] = new Option(`Vòng ${i + 1}`, `${i + 1}`);
     }
+}
+function getSelectOption() {
+    turnMatch=select.options[select.selectedIndex].value;
+    return turnMatch;
+}
+function displayRank() {
+    getSelectOption();
+    document.getElementById('rankTable').innerHTML = "";
+    let print = "";
+    for (let i = 0; i < turnMax; i++) {
+        print += '<tr>';
+        print += '<td>' + footballTeam[i]._name + '</td>';
+        print += '<td>' + turnMatch + '</td>';
+        print += '<td>' + footballTeam[i]._win + '</td>';
+        print += '<td>' + footballTeam[i]._lost + '</td>';
+        print += '<td>' + footballTeam[i]._draw + '</td>';
+        print += '<td>' + footballTeam[i]._score + '</td>';
+        print += '</tr>';
+    }
+    document.getElementById('rankTable').innerHTML = print;
+
 }
 

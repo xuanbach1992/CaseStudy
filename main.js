@@ -1,8 +1,18 @@
 let FootballLeague = function (nameLeague) {
     this._name = nameLeague;
     this._turn = 0;
-    this.getName=function(){
+
+    this.setNameLeague = function (name) {
+        this._name = name;
+    };
+    this.getNameLeague = function () {
         return this._name;
+    };
+    this.setTurnMax=function (turn) {
+        this._turn=turn;
+    };
+    this.getTurnMax=function () {
+        return this._turn;
     };
 };
 
@@ -43,10 +53,10 @@ let TeamClub = function (name) {
     };
     this.match = function (name) {
         let result = this.perform() - name.perform();
-        if (result === 0) {
+        if (result <= 2 && result >= -2) {
             this.isDraw();
             name.isDraw();
-        } else if (result < 0) {
+        } else if (result < -2) {
             this.isLost();
             name.isWin();
         } else {
