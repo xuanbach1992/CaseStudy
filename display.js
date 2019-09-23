@@ -1,24 +1,25 @@
-let arrayNameClub = [];
+let arrayNameClub = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
 let inputStr = document.getElementById("inputName");
 let edit = document.getElementById('editValue');
 let index = 0;
 let nameleauge = ``;
-let turnMax = 0;
+let maxRound = 0;
 let select = document.getElementById("selectTurn");
-let turnMatch = "";
+let matchRound = "";
+sayhello();
+let leauge = new FootballLeague(nameleauge);
+let footballTeam = [];
 
 function sayhello() {
-    let question = confirm("ban muon da bong k?");
-    if (question) {
-        if (confirm('hay thu lam người quan lý giải bóng')) {
-            nameleauge = prompt('Hãy nhập tên giải đấu');
-            document.getElementById('hello').innerHTML = `Chào mừng bạn đến với giải đấu ${nameleauge}`;
-            return nameleauge;
-        }
-    }
+    // let question = confirm("ban muon da bong k?");
+    // if (question) {
+    //     if (confirm('hay thu lam người quan lý giải bóng')) {
+    //         nameleauge = prompt('Hãy nhập tên giải đấu');
+    //         document.getElementById('hello').innerHTML = `Chào mừng bạn đến với giải đấu ${nameleauge}`;
+    return nameleauge;
+    // }
+    // }
 }
-
-sayhello();
 
 function display() {
     arrayNameClub.push(inputStr.value);
@@ -75,55 +76,55 @@ function augmentElementArray(test) {
     return test;
 }
 
-let leauge = new FootballLeague(nameleauge);
-let footballTeam = [];
-
+showTeam();
 function showTeam() {
     footballTeam = [];
     for (let i of arrayNameClub) {
         footballTeam.push(new TeamClub(i));
     }
     leauge.setTurnMax(footballTeam.length);
-    turnMax = leauge.getTurnMax();
-    if (footballTeam.length >= 10) {
-        alert("Đã đủ số đội tối thiểu")
-        // } else {
-        //     alert("ít người tham dự,cần thêm số đội tham dự")
-    }
-    return turnMax;
+    maxRound = leauge.getTurnMax();
+    // if (footballTeam.length >= 10) {
+    //     alert("Đã đủ số đội tối thiểu")
+    //     // } else {
+    //     //     alert("ít người tham dự,cần thêm số đội tham dự")
+    // }
 }
 
 function playAll() {
-    for (leauge._turn = 0; leauge._turn < turnMatch; leauge._turn++) {
-        footballTeam = augmentElementArray(footballTeam);
-        for (let i = 0; i < footballTeam.length / 2; i++) {
-            footballTeam[i].match(footballTeam[footballTeam.length - 1 - i]);
-        }
-        saveData(leauge._turn,footballTeam);
+    for (leauge._turn = 0; leauge._turn < matchRound; leauge._turn++) {
+        let round=[];
+        round=playOneTurn();
+        saveData(leauge._turn+1,round);
     }
 }
 
+function playOneTurn() {
+    for (let i = 0; i < footballTeam.length / 2; i++) {
+        footballTeam = augmentElementArray(footballTeam);
+        footballTeam[i].match(footballTeam[footballTeam.length - 1 - i]);
+    }
+}
 function createSelect() {
-    for (let i = 0; i < turnMax; i++) {
+    for (let i = 0; i < maxRound; i++) {
         select.options[select.options.length] = new Option(`Vòng ${i + 1}`, `${i + 1}`);
     }
 }
 
 function getSelectOption() {
-    turnMatch = select.options[select.selectedIndex].value;
-    playAll();
-    localStorage.getItem(leauge._turn);
+    matchRound = select.options[select.selectedIndex].value;
+    footballTeam=loadData(leauge._turn+1);
+    // console.log(footballTeam);
     displayRank();
-    return turnMatch;
 }
 
 function displayRank() {
     let print = "";
     document.getElementById('rankTable').innerHTML = print;
-    for (let i = 0; i < turnMax; i++) {
+    for (let i = 0; i < maxRound; i++) {
         print += '<tr>';
         print += '<td>' + footballTeam[i]._name + '</td>';
-        print += '<td>' + turnMatch + '</td>';
+        print += '<td>' + matchRound + '</td>';
         print += '<td>' + footballTeam[i]._win + '</td>';
         print += '<td>' + footballTeam[i]._lost + '</td>';
         print += '<td>' + footballTeam[i]._draw + '</td>';
@@ -131,10 +132,17 @@ function displayRank() {
         print += '</tr>';
     }
     document.getElementById('rankTable').innerHTML = print;
-
 }
 
-function saveData(turn,arr) {
-    localStorage.setItem("turn"+turn, JSON.stringify(arr));
+function saveData(key, arr) {
+    return localStorage.setItem(key, JSON.stringify(arr));
+}
+
+function loadData(key) {
+    return JSON.parse(localStorage.getItem(key));
+}
+
+function delData() {
+    return localStorage.clear();
 }
 
