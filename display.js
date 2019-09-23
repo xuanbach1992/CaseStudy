@@ -99,6 +99,7 @@ function playAll() {
         for (let i = 0; i < footballTeam.length / 2; i++) {
             footballTeam[i].match(footballTeam[footballTeam.length - 1 - i]);
         }
+        saveData(leauge._turn,footballTeam);
     }
 }
 
@@ -111,13 +112,14 @@ function createSelect() {
 function getSelectOption() {
     turnMatch = select.options[select.selectedIndex].value;
     playAll();
+    localStorage.getItem(leauge._turn);
     displayRank();
     return turnMatch;
 }
 
 function displayRank() {
-    document.getElementById('rankTable').innerHTML = "";
     let print = "";
+    document.getElementById('rankTable').innerHTML = print;
     for (let i = 0; i < turnMax; i++) {
         print += '<tr>';
         print += '<td>' + footballTeam[i]._name + '</td>';
@@ -130,5 +132,9 @@ function displayRank() {
     }
     document.getElementById('rankTable').innerHTML = print;
 
+}
+
+function saveData(turn,arr) {
+    localStorage.setItem("turn"+turn, JSON.stringify(arr));
 }
 
