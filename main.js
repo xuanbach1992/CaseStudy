@@ -1,106 +1,98 @@
-let FootballLeague = function (nameLeague) {
-    this._name = nameLeague;
-    this._round = 0;
-    this.teams = [];
+let arrayNameClub = ["Man Utd", "Arsenal", "Liverpool", "Chensea", "Man City", "Tottenham", "Everton", "Newcastle", "Aston villa", "Norwich"];
+let inputStr = document.getElementById("inputName");
+let edit = document.getElementById('editValue');
+let index = 0;
+let maxRound = 0;
+let select = document.getElementById("selectTurn");
+let round = 0;
 
-    this.setNameLeague = function (name) {
-        this._name = name;
-    };
-    this.getNameLeague = function () {
-        return this._name;
-    };
-    this.setTurnMax = function (turn) {
-        this._round = turn;
-    };
-    this.getTurnMax = function () {
-        return this._round;
-    };
-    this.addTeam = function (team) {
-        this.teams.push(team);
-    };
-    this.match = function (team1, team2) {
-        let result = team1.perform() - team2.perform();
-        if (result <= 2 && result >= -2) {
-            team1.isDraw();
-            team2.isDraw();
-        } else if (result < -2) {
-            team1.isLost();
-            team2.isWin();
-        } else {
-            team1.isWin();
-            team2.isLost();
-        }
-    };
-    this.matchRound = function () {
-        this.teams = this.getShuffleTeams();
-        for (let i = 0; i < this.teams.length/2; i++) {
-            this.match(this.teams[i], this.teams[this.teams.length - i - 1]);
-        }
-        this._round++;
-    };
-    this.getShuffleTeams = function () {
-        let teams = this.teams;
-        for (let i = 0; i < teams.length - 1; i++) {
-            let temp = teams[i];
-            teams[i] = teams[i + 1];
-            teams[i + 1] = temp;
-        }
-        return teams;
+function createLeague() {
+    league.teams = [];
+    for (let i = 0; i < arrayNameClub.length; i++) {
+        let team = new TeamClub(arrayNameClub[i]);
+        league.addTeam(team);
     }
-};
+}
 
-let TeamClub = function (name) {
-    this._name = name;
-    this._perform = 100;
-    this._win = 0;
-    this._lost = 0;
-    this._draw = 0;
-    this._score = 0;
-    this._rank = 0;
-    this.data = [];
-
-    this.getRank = function () {
-        return this._rank;
-    };
-    this.setName = function (name) {
-        this._name = name;
-    };
-    this.getName = function () {
-        return this._name;
-    };
-    this.isWin = function () {
-        this._score += 3;
-        this._win += 1
-    };
-    this.isLost = function () {
-        this._lost += 1;
-        return this._score;
-    };
-    this.isDraw = function () {
-        this._score += 1;
-        this._draw += 1
-    };
-    //
-    this.perform = function () {
-        this._perform = Math.round(Math.random() * 20 + 80);
-        return this._perform;
-    };
-    // this.match = function () {
-    //     let ran = Math.floor(Math.random()*3)+1;
-    //     switch (ran) {
-    //         case 0:
-    //             this.isWin();
-    //             break;
-    //         case 1:
-    //             this.isDraw();
-    //             break;
-    //         case 2:
-    //             this.isLost();
-    //             break;
-    //     }
-    // }
-    this.getData = function () {
-        let arr = ({name: this._name, win: this._win, lost: this._lost, draw: this._draw});
-        return arr;
+function roundOne() {
+    league.matchRound();
+}
+function sayhello() {
+    let question = confirm("ban muon da bong k?");
+    if (question) {
+        if (confirm('hay thu lam người quan lý giải bóng')) {
+           let nameleauge = prompt('Hãy nhập tên giải đấu');
+            document.getElementById('hello').innerHTML = `Chào mừng bạn đến với giải đấu ${nameleauge}`;
+            league.setNameLeague =nameleauge;
+            }
+        }
     }
-};
+
+let league = new FootballLeague();
+
+function showTeam() {
+    league.setTurnMax(league.teams.length);
+    maxRound = league.getTurnMax();
+    if (arrayNameClub.length >= 10) {
+        createSelect();
+    } else {
+        alert("ít đội tham dự,cần thêm số đội tham dự");
+    }
+}
+function createSelect() {
+    createLeague();
+    for (let i = 0; i < maxRound; i++) {
+        select.options[select.options.length] = new Option(`Vòng ${i + 1}`, `${i + 1}`);
+    }
+}
+
+function getSelectOption() {
+    round = select.options[select.selectedIndex].value;
+    for (let i = 0; i < round; i++) {
+        roundOne();
+    }
+    displayRank();
+}
+
+function displayRank() {
+    let print = "";
+    document.getElementById('rankTable').innerHTML = print;
+    for (let i = 0; i < league.teams.length; i++) {
+        print += '<tr>';
+        print += '<td>' + league.teams[i]._name + '</td>';
+        print += '<td>' + round + '</td>';
+        print += '<td>' + league.teams[i]._win + '</td>';
+        print += '<td>' + league.teams[i]._lost + '</td>';
+        print += '<td>' + league.teams[i]._draw + '</td>';
+        print += '<td>' + league.teams[i]._score + '</td>';
+        print += '</tr>';
+    }
+    document.getElementById('rankTable').innerHTML = print;
+}
+
+function champion() {
+    let max = 0;
+    if (round >= maxRound) {
+        for (let i = 1; i < league.teams.length; i++) {
+            if (league.teams[0]._score < league.teams[i]._score) {
+                max = i;
+            }
+            document.getElementById("champion").innerHTML = `Chuc mung FC :${league.teams[max]._name} da vo dich voi so diem ${league.teams[max]._score}`;
+        }
+    } else {
+        alert("Đá xong đâu mà đòi vô địch, cút về đá tiếp");
+    }
+}
+
+// function saveData(key, arr) {
+//     return localStorage.setItem(key, JSON.stringify(arr));
+// }
+//
+// function loadData(key) {
+//     return JSON.parse(localStorage.getItem(key));
+// }
+//
+// function delData() {
+//     localStorage.clear();
+// }
+
