@@ -4,17 +4,14 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link href="styleStudy.css" rel="stylesheet">
-
-
-<body>
+<body onload="sayhello()">
 <fieldset>
-    <legend>Them cau lac bo vao giai dau</legend>
+    <legend>Danh sách câu lạc bộ tham gia</legend>
     <label for="inputName"></label><input id="inputName" type="text">
-    <button onclick="display()"> ADD FC</button>
-
+    <button onclick="addTeams()">Add FC in league</button>
     <div id="hiddenClass">
         <label for="editValue"></label><input type="text" id="editValue">
-        <button onclick="editInput()">edit</button>
+        <button onclick="editInput()">Update Name FC</button>
     </div>
     <table>
         <tr>
@@ -27,8 +24,8 @@
 <fieldset>
     <legend>Thi dau</legend>
     <code id="hello"></code>
-    <button onclick="createSelect()">Create</button>
-    <button onclick="champion()">Nha vo dich</button>
+    <button onclick="showTeam()">Create</button>
+    <button onclick="champion()">Champion</button>
     <br>
     <code>Vòng đấu</code>
     <label for="selectTurn"></label><select id="selectTurn" onchange="getSelectOption()">
@@ -50,9 +47,7 @@
         </tbody>
     </table>
     <code id="champion"></code>
-
 </fieldset>
-<button onclick="delData()">Xóa dữ liệu vòng đấu </button>
 <script src="main.js"></script>
 <script src="display.js"></script>
 </body>

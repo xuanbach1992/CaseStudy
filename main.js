@@ -1,8 +1,7 @@
 let FootballLeague = function (nameLeague) {
     this._name = nameLeague;
-    this._turn = 0;
+    this._round = 0;
     this.teams = [];
-    this._result=[];
 
     this.setNameLeague = function (name) {
         this._name = name;
@@ -10,11 +9,11 @@ let FootballLeague = function (nameLeague) {
     this.getNameLeague = function () {
         return this._name;
     };
-    this.setTurnMax=function (turn) {
-        this._turn=turn;
+    this.setTurnMax = function (turn) {
+        this._round = turn;
     };
-    this.getTurnMax=function () {
-        return this._turn;
+    this.getTurnMax = function () {
+        return this._round;
     };
     this.addTeam = function (team) {
         this.teams.push(team);
@@ -33,12 +32,11 @@ let FootballLeague = function (nameLeague) {
         }
     };
     this.matchRound = function () {
-        // this.teams = this.getShuffleTeams();
-        for (let i=0;i<this.teams.length;i++){
-            // this.match(this.teams[i],this.teams[this.teams.length-i-1]);
-            this.teams[i].match();
+        this.teams = this.getShuffleTeams();
+        for (let i = 0; i < this.teams.length/2; i++) {
+            this.match(this.teams[i], this.teams[this.teams.length - i - 1]);
         }
-        this._turn++;
+        this._round++;
     };
     this.getShuffleTeams = function () {
         let teams = this.teams;
@@ -87,22 +85,22 @@ let TeamClub = function (name) {
         this._perform = Math.round(Math.random() * 20 + 80);
         return this._perform;
     };
-    this.match = function () {
-        let ran = Math.floor(Math.random()*3)+1;
-        switch (ran) {
-            case 0:
-                this.isWin();
-                break;
-            case 1:
-                this.isDraw();
-                break;
-            case 2:
-                this.isLost();
-                break;
-        }
-    }
+    // this.match = function () {
+    //     let ran = Math.floor(Math.random()*3)+1;
+    //     switch (ran) {
+    //         case 0:
+    //             this.isWin();
+    //             break;
+    //         case 1:
+    //             this.isDraw();
+    //             break;
+    //         case 2:
+    //             this.isLost();
+    //             break;
+    //     }
+    // }
     this.getData = function () {
-        let arr = ({name:this._name,win:this._win,lost:this._lost,draw:this._draw});
+        let arr = ({name: this._name, win: this._win, lost: this._lost, draw: this._draw});
         return arr;
     }
 };
