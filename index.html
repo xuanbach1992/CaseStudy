@@ -6,49 +6,53 @@
     <link href="styleStudy.css" rel="stylesheet">
     <script src="crudTeams.js"></script>
 <body onload="sayhello()">
-<fieldset>
-    <legend>Danh sách câu lạc bộ tham gia</legend>
-    <label for="inputName"></label><input id="inputName" type="text">
-    <button onclick="addTeams()">Add FC in league</button>
-    <div id="hiddenClass">
-        <label for="editValue"></label><input type="text" id="editValue">
-        <button onclick="editInput()">Update Name FC</button>
-    </div>
-    <table>
-        <tr>
-            <th>Football Club</th>
-        </tr>
-        <tbody id="demo">
-        </tbody>
-    </table>
-</fieldset>
-<fieldset>
-    <legend>Thi dau</legend>
-    <code id="hello"></code>
-    <button onclick="showTeam()">Create</button>
-    <button onclick="champion()">Champion</button>
-    <br>
-    <code>Vòng đấu</code>
-    <label for="selectTurn"></label><select id="selectTurn" onchange="getSelectOption()">
-    <option selected>--Vòng--</option>
-</select>
-    <table>
-        <tr>
-            <th>Rank Table</th>
-        </tr>
-        <tr>
-            <td>FC</td>
-            <td>Số trận đá</td>
-            <td>Win</td>
-            <td>Lost</td>
-            <td>Draw</td>
-            <td>Score</td>
-        </tr>
-        <tbody id="rankTable">
-        </tbody>
-    </table>
-    <code id="champion"></code>
-</fieldset>
+<div class="fieldset">
+    <fieldset>
+        <legend>Danh sách câu lạc bộ tham gia</legend>
+        <label for="inputName"></label><input id="inputName" type="text">
+        <button onclick="addTeams()">Add FC in league</button>
+        <div id="hiddenClass">
+            <label for="editValue"></label><input type="text" id="editValue">
+            <button onclick="editInput()">Update Name FC</button>
+        </div>
+        <table>
+            <tr>
+                <th>Football Club</th>
+            </tr>
+            <tbody id="demo">
+            </tbody>
+        </table>
+    </fieldset>
+</div>
+<div class="fieldset">
+    <fieldset>
+        <legend>Thi dau</legend>
+        <code id="hello"></code>
+        <button onclick="showTeam()">Create</button>
+        <button onclick="champion()">Champion</button>
+        <br>
+        <code>Vòng đấu</code>
+        <label for="selectTurn"></label><select id="selectTurn" onchange="getSelectOption()">
+        <option selected>--Vòng--</option>
+    </select>
+        <table>
+            <tr>
+                <th>Rank Table</th>
+            </tr>
+            <tr>
+                <td>FC</td>
+                <td>Số trận đá</td>
+                <td>Win</td>
+                <td>Lost</td>
+                <td>Draw</td>
+                <td>Score</td>
+            </tr>
+            <tbody id="rankTable">
+            </tbody>
+        </table>
+        <code id="champion"></code>
+    </fieldset>
+</div>
 <script src="class.js"></script>
 <script src="main.js"></script>
 </body>
