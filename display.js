@@ -1,14 +1,15 @@
-let arrayNameClub = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
+let arrayNameClub = ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "zezo"];
 let inputStr = document.getElementById("inputName");
 let edit = document.getElementById('editValue');
 let index = 0;
 let nameleauge = ``;
 let maxRound = 0;
 let select = document.getElementById("selectTurn");
-let matchRound = "";
 sayhello();
 let leauge = new FootballLeague(nameleauge);
 let footballTeam = [];
+let round = 0;
+
 
 function sayhello() {
     // let question = confirm("ban muon da bong k?");
@@ -31,14 +32,12 @@ function display() {
 
 function printName() {
     let printArray = '';
-    if (arrayNameClub.length > 0) {
         for (let i = 0; i < arrayNameClub.length; i++) {
-            printArray += `<tr>`;
+            printArray += '<tr>';
             printArray += '<td>' + arrayNameClub[i] + '</td>';
             printArray += '<td><button onclick="editTeam(' + i + ')">Edit</button></td>';
             printArray += '<td><button onclick="delTeam(' + i + ')">Delete</button></td>';
             printArray += '</tr>';
-        }
     }
     document.getElementById('demo').innerHTML = printArray;
 }
@@ -68,14 +67,12 @@ function delTeam(id) {
 
 function augmentElementArray(test) {
     for (let i = 0; i < test.length - 1; i++) {
-        // let randomIndex = Math.round(Math.random() * i);
         temp = test[i];
         test[i] = test[i + 1];
         test[i + 1] = temp;
     }
     return test;
 }
-
 showTeam();
 function showTeam() {
     footballTeam = [];
@@ -89,42 +86,41 @@ function showTeam() {
     //     // } else {
     //     //     alert("ít người tham dự,cần thêm số đội tham dự")
     // }
-}
-
-function playAll() {
-    for (leauge._turn = 0; leauge._turn < matchRound; leauge._turn++) {
-        let round=[];
-        round=playOneTurn();
-        saveData(leauge._turn+1,round);
-    }
-}
-
-function playOneTurn() {
-    for (let i = 0; i < footballTeam.length / 2; i++) {
-        footballTeam = augmentElementArray(footballTeam);
-        footballTeam[i].match(footballTeam[footballTeam.length - 1 - i]);
-    }
+    console.log(footballTeam);
 }
 function createSelect() {
     for (let i = 0; i < maxRound; i++) {
         select.options[select.options.length] = new Option(`Vòng ${i + 1}`, `${i + 1}`);
     }
+    play();
 }
-
 function getSelectOption() {
-    matchRound = select.options[select.selectedIndex].value;
-    footballTeam=loadData(leauge._turn+1);
-    // console.log(footballTeam);
+    round = select.options[select.selectedIndex].value;
     displayRank();
+    return round;
 }
 
+function play() {
+    for (let i = 0; i < round; i++) {
+        footballTeam = augmentElementArray(footballTeam);
+        playOneRound();
+    }
+}
+
+function playOneRound() {
+    for (let i = 0; i < footballTeam.length / 2; i++) {
+        footballTeam[i].match(footballTeam[footballTeam.length - 1 - i]);
+    }
+    saveData((round+1).toString(),footballTeam)
+
+}
 function displayRank() {
     let print = "";
     document.getElementById('rankTable').innerHTML = print;
-    for (let i = 0; i < maxRound; i++) {
+    for (let i = 0; i < footballTeam.length; i++) {
         print += '<tr>';
         print += '<td>' + footballTeam[i]._name + '</td>';
-        print += '<td>' + matchRound + '</td>';
+        print += '<td>' + round + '</td>';
         print += '<td>' + footballTeam[i]._win + '</td>';
         print += '<td>' + footballTeam[i]._lost + '</td>';
         print += '<td>' + footballTeam[i]._draw + '</td>';
@@ -132,6 +128,16 @@ function displayRank() {
         print += '</tr>';
     }
     document.getElementById('rankTable').innerHTML = print;
+}
+
+function champion() {
+    let max = 0;
+    for (let i = 1; i < footballTeam.length; i++) {
+        if (footballTeam[0]._score < footballTeam[i]._score) {
+            max = i;
+        }
+    }
+    document.getElementById("champion").innerHTML = `Chuc mung FC :${footballTeam[max]._name} da vo dich voi so diem ${footballTeam[max]._score}`;
 }
 
 function saveData(key, arr) {
@@ -143,6 +149,6 @@ function loadData(key) {
 }
 
 function delData() {
-    return localStorage.clear();
+    localStorage.clear();
 }
 

@@ -1,6 +1,7 @@
 let FootballLeague = function (nameLeague) {
     this._name = nameLeague;
     this._turn = 0;
+    this._result=[];
 
     this.setNameLeague = function (name) {
         this._name = name;
