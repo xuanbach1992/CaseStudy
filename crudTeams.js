@@ -1,4 +1,5 @@
 function addTeams() {
+    document.getElementById("entertaiment").style.display="block";
     arrayNameClub.push(inputStr.value);
     inputStr.value = "";
     inputStr.focus();

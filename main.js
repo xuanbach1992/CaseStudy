@@ -18,6 +18,7 @@ function roundOne() {
     league.matchRound();
 }
 function sayhello() {
+
     let question = confirm("ban muon da bong k?");
     if (question) {
         if (confirm('hay thu lam người quan lý giải bóng')) {
