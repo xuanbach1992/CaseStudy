@@ -20,9 +20,16 @@ function createLeague() {
 }
 function roundOne() {
     league.matchRound();
-        console.log(league.teams);
+    console.log(league.teams);
+    let arr = [];
+    for (let i = 0; i < league.teams.length; i++) {
+        arr.push(league.teams[i].getData());
+        console.log(arr)    
+    }
+    // result.push(arr);
     if(league._turn >= 9){
         clearInterval(r);
+        console.log(result);
     }
 }
 // function fight(round) {
