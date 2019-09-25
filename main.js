@@ -38,7 +38,7 @@ function roundAll() {
 function sayHello() {
     let question = confirm("ban co thich da bong k?");
     if (question) {
-        if (confirm('hay thu lam người quan lý giải bóng')) {
+        if (confirm('hay thu lam người quan lý giải da bóng')) {
            let nameleauge = prompt('Hãy nhập tên giải đấu');
             document.getElementById('hello').innerHTML = `Chào mừng bạn đến với giải đấu ${nameleauge}`;
             league.setNameLeague =nameleauge;
