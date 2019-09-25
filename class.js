@@ -2,6 +2,7 @@ let FootballLeague = function (nameLeague) {
     this._name = nameLeague;
     this._round = 0;
     this.teams = [];
+    this.data = [];
 
     this.setNameLeague = function (name) {
         this._name = name;
@@ -35,8 +36,9 @@ let FootballLeague = function (nameLeague) {
         this.teams = this.getShuffleTeams();
         for (let i = 0; i < this.teams.length / 2; i++) {
             this.match(this.teams[i], this.teams[this.teams.length - i - 1]);
+
         }
-        this._round++;
+        // this._round++;
     };
     this.getShuffleTeams = function () {
         let teams = this.teams;
@@ -46,7 +48,8 @@ let FootballLeague = function (nameLeague) {
             teams[i + 1] = temp;
         }
         return teams;
-    }
+    };
+
 };
 
 let TeamClub = function (name) {
@@ -99,8 +102,4 @@ let TeamClub = function (name) {
     //             break;
     //     }
     // }
-    this.getData = function () {
-        let arr = ({name: this._name, win: this._win, lost: this._lost, draw: this._draw});
-        return arr;
-    }
 };

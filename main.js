@@ -14,12 +14,29 @@ function createLeague() {
     }
 }
 
-function roundOne() {
-    league.matchRound();
+function pushData() {
+    for (let i = 0; i < maxRound; i++) {
+        league.data.push(i);
+        league.data[i]=[];
+        for (let j = 0; j < league.teams.length; j++) {
+            league.data[i].push(j);
+            league.data[i][j]=[];
+        }
+    }
 }
-function sayhello() {
 
-    let question = confirm("ban muon da bong k?");
+function roundAll() {
+    pushData();
+    for (let i = 0; i < maxRound; i++) {
+        league.matchRound();
+        for (let j = 0; j < league.teams.length; j++) {
+            league.data[i][j].push(league.teams[j]._name, league.teams[j]._score, league.teams[j]._win, league.teams[j]._lost, league.teams[j]._draw);
+        }
+    }
+}
+
+function sayHello() {
+    let question = confirm("ban co thich da bong k?");
     if (question) {
         if (confirm('hay thu lam người quan lý giải bóng')) {
            let nameleauge = prompt('Hãy nhập tên giải đấu');
@@ -42,7 +59,8 @@ function showTeam() {
 }
 function createSelect() {
     createLeague();
-    for (let i = 0; i < maxRound; i++) {
+    roundAll();
+    for (let i = 0; i < maxRound;++i) {
         select.options[select.options.length] = new Option(`Vòng ${i + 1}`, `${i + 1}`);
     }
 }
@@ -50,7 +68,6 @@ function createSelect() {
 function getSelectOption() {
     round = select.options[select.selectedIndex].value;
     for (let i = 0; i < round; i++) {
-        roundOne();
     }
     displayRank();
 }
@@ -60,12 +77,12 @@ function displayRank() {
     document.getElementById('rankTable').innerHTML = print;
     for (let i = 0; i < league.teams.length; i++) {
         print += '<tr>';
-        print += '<td>' + league.teams[i]._name + '</td>';
+        print += '<td>' + league.data[round - 1][i][0] + '</td>';
         print += '<td>' + round + '</td>';
-        print += '<td>' + league.teams[i]._win + '</td>';
-        print += '<td>' + league.teams[i]._lost + '</td>';
-        print += '<td>' + league.teams[i]._draw + '</td>';
-        print += '<td>' + league.teams[i]._score + '</td>';
+        print += '<td>' + league.data[round - 1][i][2] + '</td>';
+        print += '<td>' + league.data[round - 1][i][3] + '</td>';
+        print += '<td>' + league.data[round - 1][i][4] + '</td>';
+        print += '<td>' + league.data[round - 1][i][1] + '</td>';
         print += '</tr>';
     }
     document.getElementById('rankTable').innerHTML = print;
